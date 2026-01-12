@@ -13,11 +13,9 @@ app = FastAPI(title="File API")
 
 BASE_URL = "http://127.0.0.1:8000"  # ⚠️ en prod será el dominio real
 
-
-def verify_token(x_api_key: str = Header(None)):
+def verify_token(x_api_key: str = Header(...)):
     if x_api_key != API_TOKEN:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-
+        raise HTTPException(status_code=401, detail="Invalid API token")
 
 
 def detect_kind(mime: str) -> str:
@@ -30,16 +28,6 @@ def detect_kind(mime: str) -> str:
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
-def _file_api_is_up(self):
-    try:
-        resp = requests.get(
-            "http://127.0.0.1:8000/health",
-            timeout=3,
-        )
-        return resp.status_code == 200
-    except Exception:
-        return False
 
 
 @app.post("/upload")
