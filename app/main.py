@@ -3,6 +3,8 @@ from fastapi.responses import FileResponse
 from typing import List
 from pathlib import Path
 import shutil, uuid, mimetypes
+from urllib.parse import unquote
+
 
 from app.settings import BASE_STORAGE_PATH, FILE_RULES, API_TOKEN
 
@@ -62,8 +64,12 @@ async def upload_files(
 
 
 # 🔥 AQUÍ ESTÁ EL FIX IMPORTANTE
-@app.get("/files/{model}/{record_id}/{filename:path}")
+
+@app.get("/files/{model}/{record_id}/{filename}")
 def get_file(model: str, record_id: int, filename: str):
+    # 🔥 CLAVE: decodificar nombre
+    filename = unquote(filename)
+
     path = BASE_STORAGE_PATH / model / str(record_id) / filename
 
     if not path.exists():
@@ -75,6 +81,7 @@ def get_file(model: str, record_id: int, filename: str):
     return FileResponse(
         path,
         media_type=mime,
+        filename=path.name,
         headers={
             "Content-Disposition": f'inline; filename="{path.name}"'
         }
