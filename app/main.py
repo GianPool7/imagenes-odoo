@@ -11,7 +11,7 @@ from app.settings import BASE_STORAGE_PATH, FILE_RULES,API_TOKEN
 
 app = FastAPI(title="File API")
 
-BASE_URL = "http://127.0.0.1:8000"  # ⚠️ en prod será el dominio real
+BASE_URL = "http://20.100.100.58"  # ⚠️ en prod será el dominio real
 
 def verify_token(x_api_key: str = Header(...)):
     if x_api_key != API_TOKEN:
