@@ -10,7 +10,7 @@ from app.settings import BASE_STORAGE_PATH, FILE_RULES, API_TOKEN
 
 app = FastAPI(title="File API")
 
-BASE_URL = "http://20.100.100.58:80"
+BASE_URL = "http://172.168.25.204:80"
 
 
 def verify_token(x_api_key: str = Header(...)):
