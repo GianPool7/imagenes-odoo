@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+gunicorn
+python-multipart
+aiofiles
+pillow

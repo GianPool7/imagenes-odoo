@@ -46,6 +46,32 @@ Servidor de almacenamiento (HDD / SSD)
 - Validación de tipo MIME y tamaño máximo por archivo
 - Health check antes de cada subida
 
+### Variables de entorno recomendadas
+
+- `BASE_STORAGE_PATH`: ruta base de archivos (default: `/data/files`)
+- `BASE_URL`: URL pública para construir links de descarga
+- `REQUIRE_API_TOKEN`: `true` o `false` (default: `true`)
+- `API_TOKEN`: token esperado en header `X-API-KEY` (obligatorio si `REQUIRE_API_TOKEN=true`)
+
+Ejemplo local sin token:
+
+```bash
+export BASE_STORAGE_PATH=./data/files
+export BASE_URL=http://127.0.0.1:8000
+export REQUIRE_API_TOKEN=false
+uvicorn app.main:app --reload
+```
+
+Ejemplo producción con token:
+
+```bash
+export BASE_STORAGE_PATH=/data/files
+export BASE_URL=https://files.tudominio.com
+export REQUIRE_API_TOKEN=true
+export API_TOKEN='cambia_esto_por_un_token_fuerte'
+gunicorn -k uvicorn.workers.UvicornWorker -w 2 -b 0.0.0.0:8000 app.main:app
+```
+
 ---
 
 ## ⚙️ Funcionalidades

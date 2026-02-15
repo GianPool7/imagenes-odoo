@@ -1,9 +1,16 @@
+import os
 from pathlib import Path
 
-# En la VM: Path("/data/files")
-BASE_STORAGE_PATH = Path("/data/files")
-
-API_TOKEN = "f1b4rPr0_UPLOAD_2026_v1$$"
+# En la VM puede ser: /data/files
+BASE_STORAGE_PATH = Path(os.getenv("BASE_STORAGE_PATH", "/data/files"))
+BASE_URL = os.getenv("BASE_URL", "http://127.0.0.1:8000")
+API_TOKEN = os.getenv("API_TOKEN", "")
+REQUIRE_API_TOKEN = os.getenv("REQUIRE_API_TOKEN", "true").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
 
 
 # Límites simples (ajusta luego)
