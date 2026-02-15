@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_STORAGE_PATH = Path(os.getenv("BASE_STORAGE_PATH", "/data/files"))
 BASE_URL = os.getenv("BASE_URL", "http://127.0.0.1:8000")
 API_TOKEN = os.getenv("API_TOKEN", "")
-REQUIRE_API_TOKEN = os.getenv("REQUIRE_API_TOKEN", "true").strip().lower() in {
+REQUIRE_API_TOKEN = os.getenv("REQUIRE_API_TOKEN", "false").strip().lower() in {
     "1",
     "true",
     "yes",
